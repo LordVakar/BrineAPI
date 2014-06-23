@@ -8,26 +8,29 @@ import org.bukkit.entity.Player;
 
 public class Party {
 	
-	List<String> partyMembers = new ArrayList<String>();
-/*	public Party() 
-	{
-
-	}*/
+	public static List<String> partyMembers = new ArrayList<String>();
+	public static List<Party> parties = new ArrayList<Party>();
+	private String partyName;
+	private String creator;
 	
-	public List<String> getMembers() {
-		return this.partyMembers;
+	public Party(String partyName, String creator) 
+	{
+		this.partyName = partyName;
+		this.creator = creator;
+		
+		parties.add(this);
 	}
 	
 	public void addPlayer(Player p) {
-		partyMembers.add(p.getName());
+		getPartyMembers().add(p.getName());
 	}
 	
 	public void removePlayer(Player p) {
-		partyMembers.remove(p.getName());
+		getPartyMembers().remove(p.getName());
 	}
 	
 	public boolean checkIfPlayerInParty(Player p) {
-		if (partyMembers.contains(p.getName())) {
+		if (getPartyMembers().contains(p.getName())) {
 			return true;
 		}
 		else {
@@ -36,12 +39,20 @@ public class Party {
 	}
 	
 	public int getSizeOfParty() {
-		return this.partyMembers.size();
+		return this.getPartyMembers().size();
 	}
 	
 	public void messageAllInParty(String message) {
-		for (String allP : partyMembers) {
+		for (String allP : getPartyMembers()) {
 			Bukkit.getPlayer(allP).sendMessage(message);
 		}
+	}
+	
+	public String getPartyName() {
+		return this.partyName;
+	}
+
+	public static List<String> getPartyMembers() {
+		return partyMembers;
 	}
 }
