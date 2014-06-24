@@ -29,12 +29,13 @@ public class PartyManager {
 			return;
 		}
 		Party party = new Party(partyName, creator);
+		joinParty(player, partyName);
 	}
 
 	public void removeParty(String partyName) {
 		partyName = partyName.toLowerCase();
 		Party.parties.remove(partyName);
-		Party.getPartyMembers().remove(partyName);
+		Party.getPartyMembers().clear();
 	}
 	
 	public void joinParty(Player player, String partyName) 
@@ -45,7 +46,7 @@ public class PartyManager {
 			return;
 		}
 		if (partyExists(partyName)) {
-			if (!(isPlayerInParty(partyName))) {
+			if (!(isPlayerInParty(player.getName()))) {
 				if(!(isFull(partyName))) {
 					party.getPartyMembers().add(player.getName());
 					party.messageAllInParty(ChatColor.GOLD + player.getName() + "has joined the party!");
@@ -62,6 +63,47 @@ public class PartyManager {
 	public void leaveParty(Player player) 
 	{
 		Party.getPartyMembers().remove(player.getName());
+	}
+	
+	public void invitePlayer(Player player, String partyName) 
+	{
+		Party party = getParty(partyName);
+		if (party == null) {
+			player.sendMessage(ChatColor.RED + "Party doesn't exist!");
+			return;
+		}
+		if (partyExists(partyName)) {
+			if (!(isPlayerInParty(player.getName()))) {
+				if(!(isFull(partyName))) {
+					party.messageAllInParty(ChatColor.GOLD + player.getName() + "was invited to the party!");
+				} else {
+					player.sendMessage(ChatColor.RED + "You were invited to a party that was full.");
+				}
+			} else {
+				player.sendMessage(ChatColor.RED + "You were invited to a party, but you're already in one!");
+			}
+		}
+	}
+	
+	public void acceptInvite(Player player, String partyName)
+	{
+		Party party = getParty(partyName);
+		if (party == null) {
+			player.sendMessage(ChatColor.RED + "Party doesn't exist!");
+			return;
+		}
+		if (partyExists(partyName)) {
+			if (!(isPlayerInParty(player.getName()))) {
+				if(!(isFull(partyName))) {
+					party.messageAllInParty(ChatColor.GOLD + player.getName() + "accepted their invitation to the party!");
+					joinParty(player, partyName);
+				} else {
+					player.sendMessage(ChatColor.RED + "You were invited to a party that was full.");
+				}
+			} else {
+				player.sendMessage(ChatColor.RED + "You were invited to a party, but you're already in one!");
+			}
+		}
 	}
 
 	public Player getPlayer(String player) {
