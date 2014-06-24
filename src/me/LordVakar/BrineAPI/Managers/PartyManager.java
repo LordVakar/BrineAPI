@@ -1,10 +1,5 @@
 package me.LordVakar.BrineAPI.Managers;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Map.Entry;
-
 import me.LordVakar.BrineAPI.Objects.Party;
 
 import org.bukkit.Bukkit;
@@ -64,7 +59,8 @@ public class PartyManager {
 		}
 	}
 	
-	public void leaveParty(Player player) {
+	public void leaveParty(Player player) 
+	{
 		Party.getPartyMembers().remove(player.getName());
 	}
 
