@@ -8,5 +8,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="C:/Users/Tony/Downloads/craftbukkit-1.7.9-R0.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Tony/Downloads/PacketAPI_V1.5_for_1.7.9.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

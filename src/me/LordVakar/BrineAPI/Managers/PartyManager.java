@@ -140,7 +140,7 @@ public class PartyManager {
 	public static Party getParty(String partyName) {
 		partyName = partyName.toLowerCase();
 		for (Party party : Party.parties) {
-			if (party.getPartyName() == partyName) {
+			if (party.getPartyName().equals(partyName)) {
 				return party;
 			}
 		}
