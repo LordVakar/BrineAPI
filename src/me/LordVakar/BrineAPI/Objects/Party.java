@@ -55,4 +55,8 @@ public class Party {
 	public static List<String> getPartyMembers() {
 		return partyMembers;
 	}
+	
+	public int getActivePartySize() {
+		return this.parties.size();
+	}
 }

@@ -7,8 +7,11 @@ import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
 public class PartyManager {
+	
 	private static PartyManager pm = new PartyManager();
 	private int maxPartySize = 9; //Modify as necessary.
+	public String prefix = "§9Party>§7";
+	
 	public static PartyManager getManager() {
 		return pm;
 	}
@@ -20,11 +23,11 @@ public class PartyManager {
 		if (player == null)
 			return;
 		if (isPlayerInParty(creator)) {
-			player.sendMessage(ChatColor.RED + "You are already in a party!");
+			player.sendMessage(prefix + ChatColor.RED + "You are already in a party!");
 			return;
 		}
 		if (partyExists(partyName)) {
-			player.sendMessage(ChatColor.RED
+			player.sendMessage(prefix + ChatColor.RED
 					+ "Error, this party name already exists!");
 			return;
 		}
@@ -42,20 +45,20 @@ public class PartyManager {
 	{
 		Party party = getParty(partyName);
 		if (party == null) {
-			player.sendMessage(ChatColor.RED + "Party doesn't exist!");
+			player.sendMessage(prefix + ChatColor.RED + "Party doesn't exist!");
 			return;
 		}
 		if (partyExists(partyName)) {
 			if (!(isPlayerInParty(player.getName()))) {
 				if(!(isFull(partyName))) {
 					party.getPartyMembers().add(player.getName());
-					party.messageAllInParty(ChatColor.GOLD + player.getName() + "has joined the party!");
-					player.sendMessage(ChatColor.GOLD + "You have joined the party!");
+					party.messageAllInParty(prefix + ChatColor.GOLD + player.getName() + "has joined the party!");
+					player.sendMessage(prefix + ChatColor.GOLD + "You have joined the party!");
 				} else {
-					player.sendMessage(ChatColor.RED + "Party is full!");
+					player.sendMessage(prefix + ChatColor.RED + "Party is full!");
 				}
 			} else {
-				player.sendMessage(ChatColor.RED + "You're already in a party!");
+				player.sendMessage(prefix + ChatColor.RED + "You're already in a party!");
 			}
 		}
 	}
@@ -69,18 +72,18 @@ public class PartyManager {
 	{
 		Party party = getParty(partyName);
 		if (party == null) {
-			player.sendMessage(ChatColor.RED + "Party doesn't exist!");
+			player.sendMessage(prefix + ChatColor.RED + "Party doesn't exist!");
 			return;
 		}
 		if (partyExists(partyName)) {
 			if (!(isPlayerInParty(player.getName()))) {
 				if(!(isFull(partyName))) {
-					party.messageAllInParty(ChatColor.GOLD + player.getName() + "was invited to the party!");
+					party.messageAllInParty(prefix + ChatColor.GOLD + player.getName() + "was invited to the party!");
 				} else {
-					player.sendMessage(ChatColor.RED + "You were invited to a party that was full.");
+					player.sendMessage(prefix + ChatColor.RED + "You were invited to a party that was full.");
 				}
 			} else {
-				player.sendMessage(ChatColor.RED + "You were invited to a party, but you're already in one!");
+				player.sendMessage(prefix + ChatColor.RED + "You were invited to a party, but you're already in one!");
 			}
 		}
 	}
@@ -89,19 +92,19 @@ public class PartyManager {
 	{
 		Party party = getParty(partyName);
 		if (party == null) {
-			player.sendMessage(ChatColor.RED + "Party doesn't exist!");
+			player.sendMessage(prefix + ChatColor.RED + "Party doesn't exist!");
 			return;
 		}
 		if (partyExists(partyName)) {
 			if (!(isPlayerInParty(player.getName()))) {
 				if(!(isFull(partyName))) {
-					party.messageAllInParty(ChatColor.GOLD + player.getName() + "accepted their invitation to the party!");
+					party.messageAllInParty(prefix + ChatColor.GOLD + player.getName() + "accepted their invitation to the party!");
 					joinParty(player, partyName);
 				} else {
-					player.sendMessage(ChatColor.RED + "You were invited to a party that was full.");
+					player.sendMessage(prefix + ChatColor.RED + "You were invited to a party that was full.");
 				}
 			} else {
-				player.sendMessage(ChatColor.RED + "You were invited to a party, but you're already in one!");
+				player.sendMessage(prefix + ChatColor.RED + "You were invited to a party, but you're already in one!");
 			}
 		}
 	}
